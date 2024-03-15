@@ -1,13 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { Product } from './interfaces/product.interface';
+import { PRODUCT_MODEL } from 'src/shared/constants';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class ProductRepository {
-    constructor() {}
+    constructor(
+        @Inject(PRODUCT_MODEL)
+        private readonly productModel: Model<Product>
+    ) {}
 
-    private products: string[] = [];
-
-    getAllProducts(): string[] {
-        this.products = [`Product 1`, `Product 2`, `Product 3`, `Product 4`, `Product 5`];
-        return this.products;
+    async getAllProducts(): Promise<Product[]> {
+        return await this.productModel.find().exec();
     }
 }

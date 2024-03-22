@@ -6,13 +6,13 @@ export const databaseProviders = [
   {
     provide: DATABASE_CONNECTION,
     useFactory: async (): Promise<typeof mongoose> => {
-      const HOST = process.env.MONGODB_HOST;
+      const HOST = process.env.MONGODB_HOST || 'localhost';
       const USER = process.env.MONGODB_USER;
       const PASSWORD = process.env.MONGODB_PASSWORD;
       const DBNAME = process.env.MONGODB_DBNAME;
       const MONGOPORT = process.env.MONGODB_PORT;
       
-      const url = `mongodb://${USER}:${PASSWORD}@${HOST}:${MONGOPORT}`;
+      const url = `mongodb://${USER}:${PASSWORD}@${HOST}:${MONGOPORT}/${DBNAME}`;
 
       console.log('url', url)
       const connection = await mongoose.connect(url)

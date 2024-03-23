@@ -8,13 +8,10 @@ services:
     ports:
       - "${MONGODB_PORT}:${MONGODB_PORT}"
     environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_ROOT_USER}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_ROOT_PASSWORD}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
       MONGO_INITDB_DATABASE: ${MONGODB_DBNAME}
-      NORMAL_USER: ${MONGODB_NORMAL_USER}
-      NORMAL_USER_PASSWORD: ${MONGODB_NORMAL_PASSWORD}
     volumes:
-      - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh
       - mongodb_data:/data/db
     networks:
       - mongodb_network
@@ -28,15 +25,15 @@ services:
     environment:
       ME_CONFIG_MONGODB_SERVER: mongodb
       ME_CONFIG_MONGODB_PORT: ${MONGODB_PORT}
-      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGODB_ROOT_USER}
-      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGODB_ROOT_PASSWORD}
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGODB_USER}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGODB_PASSWORD}
     networks:
       - mongodb_network
     depends_on:
       - mongodb
 
-  velure-product-service:
-    image: velure-product-service
+  velure_product_service:
+    image: teste
     container_name: velure
     ports:
       - "${NESTJS_PORT}:${NESTJS_PORT}"
@@ -45,8 +42,8 @@ services:
       MONGODB_HOST: ${MONGODB_CONTAINER_NAME}
       MONGODB_PORT: ${MONGODB_PORT}
       MONGODB_DBNAME: ${MONGODB_DBNAME}
-      MONGODB_USER: ${MONGODB_NORMAL_USER}
-      MONGODB_PASSWORD: ${MONGODB_NORMAL_PASSWORD}
+      MONGODB_USER: ${MONGODB_USER}
+      MONGODB_PASSWORD: ${MONGODB_PASSWORD}
     networks:
       - mongodb_network
     depends_on:

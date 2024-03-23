@@ -14,10 +14,9 @@ export const databaseProviders = [
       
       const url = `mongodb://${USER}:${PASSWORD}@${HOST}:${MONGOPORT}/${DBNAME}`;
 
-      console.log('url', url)
       const connection = await mongoose.connect(url)
         .then(() => { console.log('Connected to MongoDB'); return mongoose; })
-        .catch((err) => { console.log('Error connecting to MongoDB', err); throw err; });
+        .catch((err) => { console.log('Error connecting to MongoDB'); throw err; });
 
       return connection;
     },

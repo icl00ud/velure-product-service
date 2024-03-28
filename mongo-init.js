@@ -13,13 +13,24 @@ var db = conn.getDB("admin");
 db.auth(rootUsername, rootPassword);
 
 var dbName = process.env.MONGO_INITDB_DATABASE;
-var collectionName = "my_collection";
+var collectionName = "products";
 
 db = conn.getDB(dbName);
 db.createCollection(collectionName);
 
+db.createUser(
+  {
+    user: rootUsername,
+    pwd:  rootPassword,
+    roles: [ { role: "readWrite", db: dbName } ]
+  }
+)
+
 db[collectionName].insertMany([
   { name: "Document 1", description: "This is document 1" },
+  { name: "Document 2", description: "This is document 2" },
+  { name: "Document 2", description: "This is document 2" },
+  { name: "Document 2", description: "This is document 2" },
   { name: "Document 2", description: "This is document 2" },
   { name: "Document 3", description: "This is document 3" }
 ]);

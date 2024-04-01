@@ -31,7 +31,7 @@ export class ProductController {
         }
     }
 
-    @Get(':name')
+    @Get('v1/:name')
     @ApiDocGenericGetOne('Product', CreateProductDto)
     async getProductByName(@Param('name') productName: string): Promise<Product[]> {
         try {
@@ -41,7 +41,7 @@ export class ProductController {
         }
     }
 
-    @Delete('/name/:name')
+    @Delete('v1//name/:name')
     @ApiDocGenericDelete('Product')
     async deleteProductsByName(@Param('name') productName: string): Promise<void> {
         try {
@@ -51,7 +51,7 @@ export class ProductController {
         }
     }
 
-    @Delete('/id/:id')
+    @Delete('v1//id/:id')
     @ApiDocGenericDelete('Product')
     async deleteProdutById(@Param('id') productId: string): Promise<void> {
         try {

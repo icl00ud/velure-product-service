@@ -30,14 +30,15 @@ db[collectionName].insertMany([
   { 
     name: "Product 1", 
     description: "Description of Product 1", 
-    price: 10.99, 
+    price: 10.99,
+    rating: 2.8,
     category: "Category 1", 
     disponibility: true, 
     quantity_warehouse: 50, 
     images: [
-      "https://example.com/image1.jpg",
-      "https://example.com/image2.jpg",
-      "https://example.com/image3.jpg"
+      "https://picsum.photos/320/100?grayscale",
+      "https://picsum.photos/320/100?grayscale",
+      "https://picsum.photos/320/100?grayscale"
     ], 
     dimensions: {
       height: 10,
@@ -52,14 +53,15 @@ db[collectionName].insertMany([
   { 
     name: "Product 2", 
     description: "Description of Product 2", 
-    price: 15.49, 
+    price: 15.49,
+    rating: 3.5,
     category: "Category 2", 
     disponibility: false, 
     quantity_warehouse: 20, 
     images: [
-      "https://example.com/image4.jpg",
-      "https://example.com/image5.jpg",
-      "https://example.com/image6.jpg"
+      "https://picsum.photos/320/100?grayscale",
+      "https://picsum.photos/320/100?grayscale",
+      "https://picsum.photos/320/100?grayscale"
     ], 
     dimensions: {
       height: 8,
@@ -75,13 +77,14 @@ db[collectionName].insertMany([
     name: "Product 3", 
     description: "Description of Product 3", 
     price: 29.99, 
+    rating: 4.2,
     category: "Category 3", 
     disponibility: true, 
     quantity_warehouse: 100, 
     images: [
-      "https://example.com/image7.jpg",
-      "https://example.com/image8.jpg",
-      "https://example.com/image9.jpg"
+      "https://picsum.photos/320/100?grayscale",
+      "https://picsum.photos/320/100?grayscale",
+      "https://picsum.photos/320/100?grayscale"
     ], 
     dimensions: {
       height: 12,
@@ -97,13 +100,14 @@ db[collectionName].insertMany([
     name: "Product 4", 
     description: "Description of Product 4", 
     price: 39.99, 
+    rating: 4.8,
     category: "Category 2", 
     disponibility: false, 
     quantity_warehouse: 10, 
     images: [
-      "https://example.com/image10.jpg",
-      "https://example.com/image11.jpg",
-      "https://example.com/image12.jpg"
+      "https://picsum.photos/320/100?grayscale",
+      "https://picsum.photos/320/100?grayscale",
+      "https://picsum.photos/320/100?grayscale"
     ], 
     dimensions: {
       height: 15,
@@ -119,13 +123,14 @@ db[collectionName].insertMany([
     name: "Product 5", 
     description: "Description of Product 5", 
     price: 49.99, 
+    rating: 3.9,
     category: "Category 1", 
     disponibility: true, 
     quantity_warehouse: 75, 
     images: [
-      "https://example.com/image13.jpg",
-      "https://example.com/image14.jpg",
-      "https://example.com/image15.jpg"
+      "https://picsum.photos/320/100?grayscale",
+      "https://picsum.photos/320/100?grayscale",
+      "https://picsum.photos/320/100?grayscale"
     ], 
     dimensions: {
       height: 18,
@@ -141,13 +146,14 @@ db[collectionName].insertMany([
     name: "Product 6", 
     description: "Description of Product 6", 
     price: 19.99, 
+    rating: 3.2,
     category: "Category 3", 
     disponibility: true, 
     quantity_warehouse: 30, 
     images: [
-      "https://example.com/image16.jpg",
-      "https://example.com/image17.jpg",
-      "https://example.com/image18.jpg"
+      "https://picsum.photos/320/100?grayscale",
+      "https://picsum.photos/320/100?grayscale",
+      "https://picsum.photos/320/100?grayscale"
     ], 
     dimensions: {
       height: 14,
@@ -163,13 +169,14 @@ db[collectionName].insertMany([
     name: "Product 7", 
     description: "Description of Product 7", 
     price: 59.99, 
+    rating: 4.1,
     category: "Category 2", 
     disponibility: false, 
     quantity_warehouse: 5, 
     images: [
-      "https://example.com/image19.jpg",
-      "https://example.com/image20.jpg",
-      "https://example.com/image21.jpg"
+      "https://picsum.photos/320/100?grayscale",
+      "https://picsum.photos/320/100?grayscale",
+      "https://picsum.photos/320/100?grayscale"
     ], 
     dimensions: {
       height: 16,
@@ -185,13 +192,14 @@ db[collectionName].insertMany([
     name: "Product 8", 
     description: "Description of Product 8", 
     price: 79.99, 
+    rating: 4.6,
     category: "Category 1", 
     disponibility: true, 
     quantity_warehouse: 90, 
     images: [
-      "https://example.com/image22.jpg",
-      "https://example.com/image23.jpg",
-      "https://example.com/image24.jpg"
+      "https://picsum.photos/320/100?grayscale",
+      "https://picsum.photos/320/100?grayscale",
+      "https://picsum.photos/320/100?grayscale"
     ], 
     dimensions: {
       height: 20,

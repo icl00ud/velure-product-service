@@ -8,16 +8,21 @@ import { ReadProductDTO } from './dto/read-product.dto';
 export class ProductService {
     constructor(private readonly repository: ProductRepository) { }
 
-    async createProduct(createProductDto: CreateProductDto): Promise<Product> {
-        return await this.repository.createProduct(createProductDto);
-    };
-
+    
     async getAllProducts(): Promise<ReadProductDTO[]> {
         return await this.repository.getAllProducts();
     }
-
+    
     async getProductsByName(name: string): Promise<Product[]> {
         return await this.repository.getProductsByName(name);
+    }
+
+    async getProductsByPage(page: number, pageSize: number): Promise<Product[]> {
+        return await this.repository.getProductsByPage(page, pageSize);
+    }
+    
+    async createProduct(createProductDto: CreateProductDto): Promise<Product> {
+        return await this.repository.createProduct(createProductDto);
     }
 
     async deleteProductsByName(name: string): Promise<void> {

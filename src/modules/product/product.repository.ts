@@ -12,16 +12,21 @@ export class ProductRepository {
         private readonly productModel: Model<Product>
     ) { }
 
-    async createProduct(createProductDto: CreateProductDto): Promise<Product> {
-        return await this.productModel.create(createProductDto);
-    };
-
+    
     async getAllProducts(): Promise<ReadProductDTO[]> {
         return await this.productModel.find().exec();
     }
-
+    
     async getProductsByName(name: string): Promise<Product[]> {
-        return await this.productModel.find({ name }).exec();
+        return await this.productModel.find({ name: name }).exec();
+    }
+
+    async getProductsByPage(page: number, pageSize: number): Promise<Product[]> {
+        return await this.productModel.find().skip((page - 1) * pageSize).limit(pageSize).exec();
+    }
+
+    async createProduct(createProductDto: CreateProductDto): Promise<Product> {
+        return await this.productModel.create(createProductDto);
     }
 
     async deleteProductsByName(name: string): Promise<void> {

@@ -6,23 +6,13 @@ import { ApiDocGenericGetAll } from 'src/shared/decorators/api-decorators/api-do
 import { ApiDocGenericGetOne } from 'src/shared/decorators/api-decorators/api-doc-generic-get-one.decorator';
 import { Product } from './interfaces/product.interface';
 import { ApiDocGenericDelete } from 'src/shared/decorators/api-decorators/api-doc-generic-delete.decorator';
+import { ReadProductDTO } from './dto/read-product.dto';
 
 @Controller('product')
 export class ProductController {
     constructor(private readonly productService: ProductService) {}
 
-    @Post()
-    @ApiDocGenericPost('Product', CreateProductDto)
-    async createProduct(@Body() createProductDto: CreateProductDto): Promise<CreateProductDto> {
-        try {
-            return await this.productService.createProduct(createProductDto);
-        } catch (error) {
-            throw error;           
-        }
-    }
-
-    @Get()
-    @ApiDocGenericGetAll('Product', CreateProductDto)
+    @Get('v1/GetAllProducts')
     async getAllProducts() {
         try {
             return this.productService.getAllProducts();
@@ -31,8 +21,7 @@ export class ProductController {
         }
     }
 
-    @Get('v1/:name')
-    @ApiDocGenericGetOne('Product', CreateProductDto)
+    @Get('v1/GetProductByName/:name')
     async getProductByName(@Param('name') productName: string): Promise<Product[]> {
         try {
             return this.productService.getProductsByName(productName);
@@ -41,8 +30,30 @@ export class ProductController {
         }
     }
 
-    @Delete('v1//name/:name')
-    @ApiDocGenericDelete('Product')
+    @Get('v1/GetProductsByPage')
+    async getProductsByPage(@Query('page') page: number, @Query('pageSize') pageSize: number): Promise<Product[]> {
+        debugger
+
+        if (!page || !pageSize)
+            throw new Error('Missing query parameters');
+        
+        try {
+            return await this.productService.getProductsByPage(page, pageSize);
+        } catch (error) {
+            throw error;           
+        }
+    }
+
+    @Post('v1/CreateProduct')
+    async createProduct(@Body() createProductDto: CreateProductDto): Promise<CreateProductDto> {
+        try {
+            return await this.productService.createProduct(createProductDto);
+        } catch (error) {
+            throw error;           
+        }
+    }
+
+    @Delete('v1/DeleteProductsByName/:name')
     async deleteProductsByName(@Param('name') productName: string): Promise<void> {
         try {
             await this.productService.deleteProductsByName(productName);
@@ -51,8 +62,7 @@ export class ProductController {
         }
     }
 
-    @Delete('v1//id/:id')
-    @ApiDocGenericDelete('Product')
+    @Delete('v1/DeleteProductById/:id')
     async deleteProdutById(@Param('id') productId: string): Promise<void> {
         try {
             return await this.productService.deleteProductById(productId);

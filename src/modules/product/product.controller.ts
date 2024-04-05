@@ -32,8 +32,6 @@ export class ProductController {
 
     @Get('v1/GetProductsByPage')
     async getProductsByPage(@Query('page') page: number, @Query('pageSize') pageSize: number): Promise<Product[]> {
-        debugger
-
         if (!page || !pageSize)
             throw new Error('Missing query parameters');
         
@@ -41,6 +39,15 @@ export class ProductController {
             return await this.productService.getProductsByPage(page, pageSize);
         } catch (error) {
             throw error;           
+        }
+    }
+
+    @Get('v1/GetProductsCount')
+    async getProductsCount() {
+        try {
+            return await this.productService.getProductsCount();
+        } catch (error) {
+            throw error;
         }
     }
 

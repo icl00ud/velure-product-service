@@ -25,6 +25,10 @@ export class ProductRepository {
         return await this.productModel.find().skip((page - 1) * pageSize).limit(pageSize).exec();
     }
 
+    async getProductsCount() {
+        return await this.productModel.countDocuments().exec();
+    }
+
     async createProduct(createProductDto: CreateProductDto): Promise<Product> {
         return await this.productModel.create(createProductDto);
     }

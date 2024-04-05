@@ -20,6 +20,10 @@ export class ProductService {
     async getProductsByPage(page: number, pageSize: number): Promise<Product[]> {
         return await this.repository.getProductsByPage(page, pageSize);
     }
+
+    async getProductsCount() {
+        return await this.repository.getProductsCount();
+    }
     
     async createProduct(createProductDto: CreateProductDto): Promise<Product> {
         return await this.repository.createProduct(createProductDto);

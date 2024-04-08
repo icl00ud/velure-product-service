@@ -9,7 +9,7 @@ async function bootstrap() {
   const PORT = process.env.NESTJS_PORT;
 
   const app = await NestFactory.create(AppModule);
-  app.enableCors();
+  app.enableCors( { origin: 'http://localhost:4200' } );
   addSwagger(app);
 
   await app.listen(PORT, async () => console.log('Server is listening on port', PORT));

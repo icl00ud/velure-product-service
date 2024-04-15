@@ -1,12 +1,11 @@
 import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
+
 import { ProductService } from './product.service';
+
 import { CreateProductDto } from './dto/create-product.dto';
-import { ApiDocGenericPost } from 'src/shared/decorators/api-decorators/api-doc-post-generic.decorator';
-import { ApiDocGenericGetAll } from 'src/shared/decorators/api-decorators/api-doc-generic-get-all.decorator';
-import { ApiDocGenericGetOne } from 'src/shared/decorators/api-decorators/api-doc-generic-get-one.decorator';
-import { Product } from './interfaces/product.interface';
-import { ApiDocGenericDelete } from 'src/shared/decorators/api-decorators/api-doc-generic-delete.decorator';
 import { ReadProductDTO } from './dto/read-product.dto';
+
+import { Product } from './interfaces/product.interface';
 
 @Controller('product')
 export class ProductController {
@@ -31,12 +30,24 @@ export class ProductController {
     }
 
     @Get('v1/GetProductsByPage')
-    async getProductsByPage(@Query('page') page: number, @Query('pageSize') pageSize: number): Promise<Product[]> {
+    async getProductsByPage(@Query('page') page: number, @Query('pageSize') pageSize: number): Promise<ReadProductDTO[]> {
         if (!page || !pageSize)
             throw new Error('Missing query parameters');
         
         try {
             return await this.productService.getProductsByPage(page, pageSize);
+        } catch (error) {
+            throw error;           
+        }
+    }
+
+    @Get('v1/GetProductsByPageAndCategory')
+    async getProductsByPageAndCategory(@Query('page') page: number, @Query('pageSize') pageSize: number, @Query('category') productCategory: string): Promise<ReadProductDTO[]> {
+        if (!page || !pageSize || !productCategory)
+            throw new Error('Missing query parameters');
+        
+        try {
+            return await this.productService.getProductsByPageAndCategory(page, pageSize, productCategory);
         } catch (error) {
             throw error;           
         }

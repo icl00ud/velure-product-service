@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ProductRepository } from './product.repository';
+
 import { Product } from './interfaces/product.interface';
 import { CreateProductDto } from './dto/create-product.dto';
 import { ReadProductDTO } from './dto/read-product.dto';
@@ -17,8 +18,12 @@ export class ProductService {
         return await this.repository.getProductsByName(name);
     }
 
-    async getProductsByPage(page: number, pageSize: number): Promise<Product[]> {
+    async getProductsByPage(page: number, pageSize: number): Promise<ReadProductDTO[]> {
         return await this.repository.getProductsByPage(page, pageSize);
+    }
+
+    async getProductsByPageAndCategory(page: number, pageSize: number, productCategory: string): Promise<ReadProductDTO[]> {
+        return await this.repository.getProductsByPageAndCategory(page, pageSize, productCategory);
     }
 
     async getProductsCount() {

@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   mongodb:
     image: mongo
@@ -36,7 +34,7 @@ services:
       - mongodb
 
   velure_product_service:
-    image: velure-product-service
+    build: .
     container_name: velure
     ports:
       - "${NESTJS_PORT}:${NESTJS_PORT}"

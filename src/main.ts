@@ -2,16 +2,16 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as dotenv from 'dotenv';
 import { addSwagger } from './config/swagger.config';
-import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 
 async function bootstrap() {
   dotenv.config();
-  const PORT = process.env.NESTJS_PORT;
+  const PORT = process.env.NESTJS_PORT || 3000;
+  const ORIGIN_UI = process.env.ORIGIN_UI || 'http://localhost:4200';
 
   const app = await NestFactory.create(AppModule);
-  app.enableCors( { origin: 'http://localhost:4200' } );
+  app.enableCors( { origin: ORIGIN_UI } );
   addSwagger(app);
 
-  await app.listen(PORT, async () => console.log('Server is listening on port', PORT));
+  await app.listen(PORT, () => console.log('Server is listening on port', PORT));
 }
 bootstrap();  

@@ -9,7 +9,6 @@ import { ReadProductDTO } from './dto/read-product.dto';
 export class ProductService {
     constructor(private readonly repository: ProductRepository) { }
 
-    
     async getAllProducts(): Promise<ReadProductDTO[]> {
         return await this.repository.getAllProducts();
     }

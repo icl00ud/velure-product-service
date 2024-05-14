@@ -11,6 +11,7 @@ COPY . .
 
 RUN npm run build
 
+# Estágio de produção
 FROM node:alpine
 
 WORKDIR /app

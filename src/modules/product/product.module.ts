@@ -3,10 +3,10 @@ import { ProductService } from './product.service';
 import { ProductController } from './product.controller';
 import { ProductRepository } from './product.repository';
 import { productsProviders } from './product.providers';
-import { DatabaseModule } from 'src/providers/databases/database.module';
+import { MoongoseModule } from 'src/providers/mongoose/mongoose.module';
 
 @Module({
-    imports: [DatabaseModule],
+    imports: [MoongoseModule],
     controllers: [ProductController],
     providers: [
         ProductService, 

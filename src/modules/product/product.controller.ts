@@ -9,7 +9,9 @@ import { Product } from './interfaces/product.interface';
 
 @Controller('product')
 export class ProductController {
-    constructor(private readonly productService: ProductService) {}
+    constructor(
+        private readonly productService: ProductService
+    ) {}
 
     @Get('v1/GetAllProducts')
     async getAllProducts() {

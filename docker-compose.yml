@@ -50,6 +50,15 @@ services:
     depends_on:
       - mongodb
 
+  redis:
+    image: redis
+    container_name: ${REDIS_CONTAINER_NAME}
+    restart: always
+    ports:
+      - "${REDIS_PORT}:${REDIS_PORT}"
+    networks:
+      - mongodb_network
+
 networks:
   mongodb_network:
 

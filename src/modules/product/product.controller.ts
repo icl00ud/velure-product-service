@@ -20,9 +20,8 @@ export class ProductController {
 
         try {
             const cachedProducts = await this.redisService.get(cacheKey);
-            if (cachedProducts) {
+            if (cachedProducts)
                 return JSON.parse(cachedProducts);
-            }
 
             const products = await this.productService.getAllProducts();
             await this.redisService.set(cacheKey, JSON.stringify(products), 'EX', 3600);

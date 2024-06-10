@@ -4,8 +4,11 @@ FROM node:alpine AS build
 WORKDIR /app
 
 COPY package*.json ./
+COPY tsconfig.build.json ./
 
-RUN npm install --production
+RUN npm install -g @nestjs/cli
+
+RUN npm install
 
 COPY . .
 

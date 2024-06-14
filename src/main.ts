@@ -1,17 +1,27 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as dotenv from 'dotenv';
-import { addSwagger } from './config/swagger.config';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { Logger } from '@nestjs/common';
+
+const logger = new Logger('velure-product-service');
 
 async function bootstrap() {
   dotenv.config();
-  const PORT = process.env.NESTJS_PORT || 3000;
-  const ORIGIN_UI = process.env.ORIGIN_UI || 'http://localhost:4200';
+  const PORT = process.env.APP_PORT || 3010;
 
-  const app = await NestFactory.create(AppModule);
-  app.enableCors( { origin: ORIGIN_UI } );
-  addSwagger(app);
+  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
+    AppModule,
+    {
+      transport: Transport.TCP,
+      options: {
+        host: '127.0.0.1',
+        port: +PORT,
+      },
+    }
+  );
 
-  await app.listen(PORT, () => console.log('Server is listening on port', PORT));
+  await app.listen();
+  logger.log(`Product service is running on port ${PORT}`);
 }
-bootstrap();  
+bootstrap();

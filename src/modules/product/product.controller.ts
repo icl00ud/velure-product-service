@@ -6,6 +6,7 @@ import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { ReadProductDTO } from './dto/read-product.dto';
 import { Product } from './interfaces/product.interface';
+import { MessagePattern } from '@nestjs/microservices';
 
 @Controller('product')
 export class ProductController {
@@ -14,8 +15,9 @@ export class ProductController {
         @InjectRedis() private readonly redisService: Redis
     ) { }
 
-    @Get('v1/GetAllProducts')
+    @MessagePattern({ cmd: 'get_all_products' })
     async getAllProducts() {
+        console.log('Getting all products');
         const cacheKey = 'allProducts';
 
         try {
@@ -32,7 +34,7 @@ export class ProductController {
         }
     }
 
-    @Get('v1/GetProductByName/:name')
+    @MessagePattern({ cmd: 'get_product_by_name' })
     async getProductByName(@Param('name') productName: string): Promise<Product[]> {
         try {
             return this.productService.getProductsByName(productName);
@@ -41,7 +43,7 @@ export class ProductController {
         }
     }
 
-    @Get('v1/GetProductsByPage')
+    @MessagePattern({ cmd: 'get_products_by_page' })
     async getProductsByPage(@Query('page') page: number, @Query('pageSize') pageSize: number): Promise<ReadProductDTO[]> {
         if (!page || !pageSize)
             throw new Error('Missing query parameters');
@@ -49,16 +51,16 @@ export class ProductController {
         const cacheKey = `productsPage:${page}:${pageSize}`;
 
         try {
-            // Tenta obter dados do cache
+            // try to get data from cache
             const cachedProducts = await this.redisService.get(cacheKey);
             if (cachedProducts) {
                 return JSON.parse(cachedProducts);
             }
 
-            // Se não estiver no cache, busca do banco de dados
+            // if cache is empty, get data from database
             const products = await this.productService.getProductsByPage(page, pageSize);
 
-            // Armazena os dados no cache por 1 hora (3600 segundos)
+            // set data to cache
             await this.redisService.set(cacheKey, JSON.stringify(products), 'EX', 3600);
 
             return products;
@@ -67,7 +69,7 @@ export class ProductController {
         }
     }
 
-    @Get('v1/GetProductsByPageAndCategory')
+    @MessagePattern({ cmd: 'get_products_by_page_and_category' })
     async getProductsByPageAndCategory(@Query('page') page: number, @Query('pageSize') pageSize: number, @Query('category') productCategory: string): Promise<ReadProductDTO[]> {
         if (!page || !pageSize || !productCategory)
             throw new Error('Missing query parameters');
@@ -79,7 +81,7 @@ export class ProductController {
         }
     }
 
-    @Get('v1/GetProductsCount')
+    @MessagePattern({ cmd: 'get_products_count' })
     async getProductsCount() {
         try {
             return await this.productService.getProductsCount();
@@ -88,7 +90,7 @@ export class ProductController {
         }
     }
 
-    @Post('v1/CreateProduct')
+    @MessagePattern({ cmd: 'create_product' })
     async createProduct(@Body() createProductDto: CreateProductDto): Promise<CreateProductDto> {
         try {
             const result = await this.productService.createProduct(createProductDto);
@@ -99,7 +101,7 @@ export class ProductController {
         }
     }
 
-    @Delete('v1/DeleteProductsByName/:name')
+    @MessagePattern({ cmd: 'delete_products_by_name' })
     async deleteProductsByName(@Param('name') productName: string): Promise<void> {
         try {
             await this.productService.deleteProductsByName(productName);
@@ -109,8 +111,8 @@ export class ProductController {
         }
     }
 
-    @Delete('v1/DeleteProductById/:id')
-    async deleteProdutById(@Param('id') productId: string): Promise<void> {
+    @MessagePattern({ cmd: 'delete_product_by_id' })
+    async deleteProductById(@Param('id') productId: string): Promise<void> {
         try {
             await this.productService.deleteProductById(productId);
             await this.redisService.del('allProducts');

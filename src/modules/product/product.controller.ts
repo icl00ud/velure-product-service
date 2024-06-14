@@ -17,7 +17,6 @@ export class ProductController {
 
     @MessagePattern({ cmd: 'get_all_products' })
     async getAllProducts() {
-        console.log('Getting all products');
         const cacheKey = 'allProducts';
 
         try {

@@ -4,7 +4,7 @@ import * as dotenv from 'dotenv';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { Logger } from '@nestjs/common';
 
-const logger = new Logger('velure-product-service');
+const logger = new Logger('Main');
 
 async function bootstrap() {
   dotenv.config();

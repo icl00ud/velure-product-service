@@ -43,7 +43,7 @@ export class ProductController {
     }
 
     @MessagePattern({ cmd: 'get_products_by_page' })
-    async getProductsByPage(@Query('page') page: number, @Query('pageSize') pageSize: number): Promise<ReadProductDTO[]> {
+    async getProductsByPage(@Body('page') page: number, @Body('pageSize') pageSize: number): Promise<ReadProductDTO[]> {
         if (!page || !pageSize)
             throw new Error('Missing query parameters');
 

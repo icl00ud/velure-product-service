@@ -1,7 +1,20 @@
 services:
+  velure-product-service:
+    build: .
+    container_name: velure-product-service
+    env_file:
+      - .env
+    networks:
+      - product_service_network
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
+    depends_on:
+      - mongodb
+      - redis
+
   mongodb:
     image: mongo
-    container_name: ${MONGODB_CONTAINER_NAME}
+    container_name: ${MONGODB_HOST}
     restart: always
     ports:
       - "${MONGODB_PORT}:27017"

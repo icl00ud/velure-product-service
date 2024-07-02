@@ -7,21 +7,21 @@ services:
     networks:
       - product_service_network
     ports:
-      - "${APP_PORT}:${APP_PORT}"
+      - "3010:3010"
     depends_on:
       - mongodb
       - redis
 
   mongodb:
     image: mongo
-    container_name: ${MONGODB_HOST}
+    container_name: mongodb
     restart: always
     ports:
-      - "${MONGODB_PORT}:27017"
+      - "27017:27017"
     environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USER}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
-      MONGO_INITDB_DATABASE: ${MONGODB_DBNAME}
+      MONGO_INITDB_ROOT_USERNAME: velure_user
+      MONGO_INITDB_ROOT_PASSWORD: velure_password
+      MONGO_INITDB_DATABASE: velure_database
     volumes:
       - mongodb_data:/data/db
       - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
@@ -30,15 +30,16 @@ services:
 
   redis:
     image: redis
-    container_name: ${REDIS_CONTAINER_NAME}
+    container_name: redis-products
     restart: always
     ports:
-      - "${REDIS_PORT}:6379"
+      - "6379:6379"
     networks:
       - product_service_network
 
 networks:
   product_service_network:
+    external: true
 
 volumes:
   mongodb_data:

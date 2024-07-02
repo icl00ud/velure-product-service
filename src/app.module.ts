@@ -13,7 +13,7 @@ import { PrometheusModule } from '@willsoto/nestjs-prometheus';
       }),
     }),
     PrometheusModule.register({
-      path: "/product-metrics"
+      path: "/product/productMetrics"
     }),
   ],
   controllers: [],

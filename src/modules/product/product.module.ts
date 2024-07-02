@@ -9,9 +9,9 @@ import { MoongoseModule } from 'src/providers/mongoose/mongoose.module';
     imports: [MoongoseModule],
     controllers: [ProductController],
     providers: [
-        ProductService, 
-        ProductRepository, 
+        ProductService,
+        ProductRepository,
         ...productsProviders
     ]
 })
-export class ProductModule {}
+export class ProductModule { }

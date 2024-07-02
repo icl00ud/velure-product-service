@@ -6,7 +6,6 @@ import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { ReadProductDTO } from './dto/read-product.dto';
 import { Product } from './interfaces/product.interface';
-import { MessagePattern } from '@nestjs/microservices';
 
 @Controller('product')
 export class ProductController {
@@ -15,7 +14,7 @@ export class ProductController {
         @InjectRedis() private readonly redisService: Redis
     ) { }
 
-    @MessagePattern({ cmd: 'get_all_products' })
+    @Get()
     async getAllProducts() {
         const cacheKey = 'allProducts';
 
@@ -33,7 +32,7 @@ export class ProductController {
         }
     }
 
-    @MessagePattern({ cmd: 'get_product_by_name' })
+    @Get('getProductByName/:name')
     async getProductByName(@Param('name') productName: string): Promise<Product[]> {
         try {
             return this.productService.getProductsByName(productName);
@@ -42,7 +41,7 @@ export class ProductController {
         }
     }
 
-    @MessagePattern({ cmd: 'get_products_by_page' })
+    @Get('getProductsByPage')
     async getProductsByPage(@Body('page') page: number, @Body('pageSize') pageSize: number): Promise<ReadProductDTO[]> {
         if (!page || !pageSize)
             throw new Error('Missing query parameters');
@@ -68,7 +67,7 @@ export class ProductController {
         }
     }
 
-    @MessagePattern({ cmd: 'get_products_by_page_and_category' })
+    @Get('getProductsByPageAndCategory')
     async getProductsByPageAndCategory(@Query('page') page: number, @Query('pageSize') pageSize: number, @Query('category') productCategory: string): Promise<ReadProductDTO[]> {
         if (!page || !pageSize || !productCategory)
             throw new Error('Missing query parameters');
@@ -80,7 +79,7 @@ export class ProductController {
         }
     }
 
-    @MessagePattern({ cmd: 'get_products_count' })
+    @Get('getProductsCount')
     async getProductsCount() {
         try {
             return await this.productService.getProductsCount();
@@ -89,7 +88,7 @@ export class ProductController {
         }
     }
 
-    @MessagePattern({ cmd: 'create_product' })
+    @Post()
     async createProduct(@Body() createProductDto: CreateProductDto): Promise<CreateProductDto> {
         try {
             const result = await this.productService.createProduct(createProductDto);
@@ -100,7 +99,7 @@ export class ProductController {
         }
     }
 
-    @MessagePattern({ cmd: 'delete_products_by_name' })
+    @Delete('deleteProductsByName/:name')
     async deleteProductsByName(@Param('name') productName: string): Promise<void> {
         try {
             await this.productService.deleteProductsByName(productName);
@@ -110,7 +109,7 @@ export class ProductController {
         }
     }
 
-    @MessagePattern({ cmd: 'delete_product_by_id' })
+    @Delete('deleteProductById/:id')
     async deleteProductById(@Param('id') productId: string): Promise<void> {
         try {
             await this.productService.deleteProductById(productId);

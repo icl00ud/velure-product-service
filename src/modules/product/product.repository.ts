@@ -12,11 +12,10 @@ export class ProductRepository {
         private readonly productModel: Model<Product>
     ) { }
 
-    
     async getAllProducts(): Promise<ReadProductDTO[]> {
         return await this.productModel.find().exec();
     }
-    
+
     async getProductsByName(name: string): Promise<Product[]> {
         return await this.productModel.find({ name: name }).exec();
     }

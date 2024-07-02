@@ -12,7 +12,7 @@ export class ProductService {
     async getAllProducts(): Promise<ReadProductDTO[]> {
         return await this.repository.getAllProducts();
     }
-    
+
     async getProductsByName(name: string): Promise<Product[]> {
         return await this.repository.getProductsByName(name);
     }
@@ -28,7 +28,7 @@ export class ProductService {
     async getProductsCount() {
         return await this.repository.getProductsCount();
     }
-    
+
     async createProduct(createProductDto: CreateProductDto): Promise<Product> {
         return await this.repository.createProduct(createProductDto);
     }

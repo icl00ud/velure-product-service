@@ -32,9 +32,10 @@ export class ProductController {
         }
     }
 
-    @Get('getProductByName/:name')
-    async getProductByName(@Param('name') productName: string): Promise<Product[]> {
+    @Get('getProductsByName/:name')
+    async getProductsByName(@Param('name') productName: string): Promise<Product[]> {
         try {
+            console.log('getProductsByName', productName)
             return this.productService.getProductsByName(productName);
         } catch (error) {
             throw error;
@@ -42,7 +43,7 @@ export class ProductController {
     }
 
     @Get('getProductsByPage')
-    async getProductsByPage(@Body('page') page: number, @Body('pageSize') pageSize: number): Promise<ReadProductDTO[]> {
+    async getProductsByPage(@Query('page') page: number, @Query('pageSize') pageSize: number): Promise<ReadProductDTO[]> {
         if (!page || !pageSize)
             throw new Error('Missing query parameters');
 

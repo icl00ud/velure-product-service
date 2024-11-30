@@ -27,13 +27,13 @@ export const databaseProviders = [
       const primaryUrl = createConnectionString(MONGODB_HOST);
 
       try {
-        logger.warn(`Tentando conectar ao MongoDB primário em ${MONGODB_HOST}:${MONGODB_PORT}`);
+        logger.warn(`Tentando conectar ao MongoDB em ${MONGODB_HOST}:${MONGODB_PORT}`);
+        logger.error(`${primaryUrl}`);
         await mongoose.connect(primaryUrl);
-        logger.log('Conectado ao MongoDB primário com sucesso');
+        logger.log('Conectado ao MongoDB com sucesso');
         return mongoose;
       } catch (primaryError) {
-        logger.error(`Falha ao conectar ao MongoDB primário`);
-        throw new Error('Não foi possível conectar ao MongoDB primário');
+        logger.error(`Falha ao conectar ao MongoDB`);
       }
     },
   },

@@ -2,9 +2,11 @@ import { Module } from '@nestjs/common';
 import { ProductModule } from './modules/product/product.module';
 import { RedisModule } from '@nestjs-modules/ioredis';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
+import { HealthModule } from './modules/health/health.module';
 
 @Module({
   imports: [
+    HealthModule,
     ProductModule,
     RedisModule.forRootAsync({
       useFactory: () => ({

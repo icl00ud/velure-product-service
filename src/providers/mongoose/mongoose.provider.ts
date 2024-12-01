@@ -18,7 +18,7 @@ export const databaseProviders = [
 
       const createConnectionString = (host: string): string => {
         if (MONGODB_USER && MONGODB_PASSWORD) {
-          return `mongodb://${encodeURIComponent(MONGODB_USER)}:${encodeURIComponent(MONGODB_PASSWORD)}@${host}:${MONGODB_PORT}/${MONGODB_DBNAME}?authSource=admin`;
+          return `mongodb+srv://${encodeURIComponent(MONGODB_USER)}:${encodeURIComponent(MONGODB_PASSWORD)}@${host}/${MONGODB_DBNAME}`;
         }
 
         return `mongodb://${host}:${MONGODB_PORT}/${MONGODB_DBNAME}`;
